@@ -5,20 +5,20 @@
 const mainCard = document.querySelector('.cards');
 
 axios.get('https://api.github.com/users/atonymartin20')
-  .then(res => {
-    console.log(res.data);
-    // mainCard.appendChild(cardCreator(res.data));  //Will need this later
-  })
+.then(res => {
+  console.log(res.data);
+  mainCard.appendChild(cardCreator(res.data));
+})
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
-   github info! You will need to understand the structure of this 
-   data in order to use it to build your component function 
+github info! You will need to understand the structure of this 
+data in order to use it to build your component function 
 
-   Skip to Step 3.
+Skip to Step 3.
 */
 
 /* Step 4: Pass the data received from Github into your function, 
-           create a new component and add it to the DOM as a child of .cards
+create a new component and add it to the DOM as a child of .cards
 */
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
@@ -70,38 +70,54 @@ const cardCreator = (obj) => {
   innerCardDiv.classList.add('card-info');
 
   const innerCardH3 = document.createElement('h3');
+  innerCardH3.classList.add('name');
+  innerCardH3.textContent = `${obj.name}`;
 
   const innerCardP = document.createElement('p');
+  innerCardP.classList.add('username');
+  innerCardP.textContent = `${obj.login}`;
 
   const innerCardP2 = document.createElement('p');
+  if (obj.location !== null) {
+    innerCardP2.textContent = `Location: ${obj.location}`;
+  }
+  else {
+    innerCardP2.textContent = 'Location: Unknown'
+  }
 
   const innerCardP3 = document.createElement('p');
-
+  innerCardP3.textContent = 'Profile: ';
 
   const innerCardATag = document.createElement('a');
   innerCardATag.href = obj.html_url;
   innerCardATag.textContent = obj.html_url;
 
   const innerCardP4 = document.createElement('p');
-
+  innerCardP4.textContent = `Followers: ${obj.followers}`
 
   const innerCardP5 = document.createElement('p');
-
+  innerCardP5.textContent = `Following: ${obj.following}`
 
   const innerCardP6 = document.createElement('p');
-
-
+  if (obj.bio !== null) {
+    innerCardP6.textContent = `Bio: ${obj.bio}`
+  }
+  else {
+    innerCardP6.textContent = 'No bio!'
+  }
 
   cardContainer.appendChild(cardIMG);
   cardContainer.appendChild(innerCardDiv);
   innerCardDiv.appendChild(innerCardH3);
   innerCardDiv.appendChild(innerCardP);
   innerCardDiv.appendChild(innerCardP2);
-  innerCardP3.appendChild(innerCardATag);
+  innerCardP3.append(innerCardATag);
   innerCardDiv.appendChild(innerCardP3);
   innerCardDiv.appendChild(innerCardP4);
   innerCardDiv.appendChild(innerCardP5);
   innerCardDiv.appendChild(innerCardP6);
+
+  return cardContainer;
 }
 
 /* List of LS Instructors Github username's: 
