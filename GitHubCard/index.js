@@ -1,8 +1,15 @@
 /* Step 1: using axios, send a GET request to the following URL 
-           (replacing the palceholder with your Github name):
+           (replacing the placeholder with your Github name):
            https://api.github.com/users/<your name>
 */
+const mainCard = document.querySelector('.cards');
 
+axios.get('https://api.github.com/users/atonymartin20')
+  .then(res => {
+    console.log(res.data);
+    // mainCard.appendChild(cardCreator(res.data));  //Will need this later
+  })
+  
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -46,6 +53,10 @@ const followersArray = [];
 
 */
 
+const cardCreator = (obj) => {
+  console.log(obj.login)
+  console.log('test')
+}
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
